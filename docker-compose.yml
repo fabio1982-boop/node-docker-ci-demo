@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    container_name: app-backend
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000" # opcional: acessar a API diretamente para depuração
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: app-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
